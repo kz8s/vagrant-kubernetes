@@ -4,7 +4,6 @@ Vagrant.configure("2") do |c|
   c.vm.define 'centos-7.1-x64' do |v|
     v.vm.hostname = 'k8s'
     v.vm.box = 'centos71-kubernetes'
-    #v.vm.box_url = 'https://s3-us-west-1.amazonaws.com/infeng-vagrant-boxes/centos/centos71-kubernetes-x64-1.0.0.box'
     v.vm.box_url = './box/virtualbox/centos71-kubernetes-x64-1.0.0.box'
     v.vm.box_check_update = 'true'
     v.vm.synced_folder '.', '/vagrant', disabled: true
