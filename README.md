@@ -17,7 +17,8 @@ sh build-all.sh
 
 ### Kubernetes build only
 
-If you have a good base CentOS image, use it and layer Kubernetes on top of it
+If you have a good base CentOS image from the previous step, use
+it and layer Kubernetes on top of it
 
 ```
 sh build-k8s.sh
@@ -25,7 +26,8 @@ sh build-k8s.sh
 
 ### Vagrant only
 
-If you have a good Kubernetes build, build the Vagrant machine only
+If you have a good Kubernetes build from the previous step, build
+the Vagrant machine only
 
 ```
 sh build-vagrant.sh
