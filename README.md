@@ -5,7 +5,7 @@
 * Packer (https://www.packer.io/)
 * Vagrant (https://www.vagrantup.com/)
 * kubectl (https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
-* VirtualBox 
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads)
 
 ## From Scratch Build
 
