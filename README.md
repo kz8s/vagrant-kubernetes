@@ -5,7 +5,6 @@
 * Packer (https://www.packer.io/)
 * Vagrant (https://www.vagrantup.com/)
 * VirtualBox (https://www.virtualbox.org/wiki/Downloads)
-* kubectl (https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
 
 ### Build
 
@@ -16,6 +15,10 @@ sh build-all.sh
 ```
 
 ### Smoketesting the Cluster
+
+Download a Kubernetes release tarball and extract
+[kubectl](https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
+from it.
 
 Smoke test the cluster by creating a trivial process in a busybox
 container, then exec into that container to do an nslookup on the
