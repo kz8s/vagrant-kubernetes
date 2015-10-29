@@ -15,7 +15,7 @@ Build a base CentOS7 image and layer Kubernetes on top of it
 sh build-all.sh
 ```
 
-## Smoke testing the final image
+## Smoketesting the Cluster
 
 Smoke test the cluster by creating a trivial process in a busybox
 container, then exec into that container to do an nslookup on the
@@ -44,7 +44,7 @@ Cleanup the smoketest busybox container
 kubectl --kubeconfig=kubernetes-configs/kubeconfig delete pod busybox
 ```
 
-## Installing a capable kubeconfig
+## Installing a Capable kubeconfig
 
 Here is the kubeconfig that lets you interact with this cluster
 without having to specify options to kubectl.  Put this in
