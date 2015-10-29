@@ -15,7 +15,7 @@ Build a base CentOS7 image and layer Kubernetes on top of it
 sh build-all.sh
 ```
 
-### Kubernetes build only
+#### Kubernetes build only
 
 If you have a good base CentOS image from the previous step, use
 it and layer Kubernetes on top of it
@@ -24,7 +24,7 @@ it and layer Kubernetes on top of it
 sh build-k8s.sh
 ```
 
-### Vagrant only
+#### Vagrant only
 
 If you have a good Kubernetes build from the previous step, build
 the Vagrant machine only
@@ -60,4 +60,25 @@ Cleanup the smoketest busybox container
 
 ```
 kubectl --kubeconfig=kubernetes-configs/kubeconfig delete pod busybox
+```
+
+## Installing a capable kubeconfig
+
+Here is the kubeconfig that lets you interact with this cluster
+without having to specify options to kubectl.  Put this in
+$HOME/.kube/config:
+
+```
+apiVersion: v1
+clusters:
+- cluster:
+    server: http://localhost:8080
+  name: vbox
+contexts:
+- context:
+    cluster: vbox
+  name: vbox
+current-context: vbox
+kind: Config
+preferences: {}
 ```
