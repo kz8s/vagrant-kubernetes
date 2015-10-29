@@ -1,0 +1,107 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "./artifacts/centos71/centos71.ovf",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "180s",
+      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "vm_name": "centos71-kubernetes",
+      "output_directory": "./artifacts/centos71-kubernetes"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "kubernetes-configs/kubeconfig",
+      "destination": "/tmp/kubeconfig"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/ca.pem",
+      "destination": "/tmp/ca.pem"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/apiserver.crt",
+      "destination": "/tmp/apiserver.crt"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/apiserver.key",
+      "destination": "/tmp/apiserver.key"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/kubesystem-namespace.yaml",
+      "destination": "/tmp/kubesystem-namespace.yaml"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/skydns.yaml",
+      "destination": "/tmp/skydns.yaml"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/config",
+      "destination": "/tmp/config"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/apiserver",
+      "destination": "/tmp/apiserver"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/controller-manager",
+      "destination": "/tmp/controller-manager"
+    },
+    {
+      "type": "file",
+      "source": "kubernetes-configs/kubelet",
+      "destination": "/tmp/kubelet"
+    },
+    {
+      "environment_vars": [
+        "UPDATE={{user `update`}}",
+        "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+        "SSH_USERNAME={{user `ssh_username`}}",
+        "SSH_PASSWORD={{user `ssh_password`}}"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "script/kubernetes.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": true,
+      "output": "box/{{.Provider}}/centos71-kubernetes-x64-{{user `version`}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "variables": {
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant",
+    "version": "1.0.0",
+    "update": "true",
+    "install_vagrant_key": "true"
+  }
+}

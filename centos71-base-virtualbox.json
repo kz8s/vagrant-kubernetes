@@ -1,0 +1,74 @@
+{
+    "builders": [{
+        "type": "virtualbox-iso",
+        "boot_command": [
+            "<tab> net.ifnames=0 biosdevname=0text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/kickstart-development.cfg<enter>"
+        ],
+        "disk_size": 40000,
+        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+        "guest_additions_mode": "upload",
+        "hard_drive_interface": "sata",
+        "guest_os_type": "RedHat_64",
+        "iso_checksum": "{{ user `iso_checksum` }}",
+        "iso_checksum_type": "sha1",
+        "iso_urls": [
+          "{{ user `iso_path` }}/{{ user `iso_name` }}",
+          "{{ user `iso_url` }}"
+        ],
+
+        "ssh_password": "{{ user `ssh_password` }}",
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ssh_wait_timeout": "10000s",
+
+        "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p",
+
+        "http_directory": "http",
+        "vboxmanage": [
+            [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+            [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+        ],
+        "virtualbox_version_file": ".vbox_version",
+        "vm_name": "centos71",
+        "output_directory": "./artifacts/centos71"
+    }],
+    "provisioners": [
+        {
+            "environment_vars": [
+                "UPDATE={{user `update`}}",
+                "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+                "SSH_USERNAME={{user `ssh_username`}}",
+                "SSH_PASSWORD={{user `ssh_password`}}"
+            ],
+            "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+              "script/bash.sh",
+              "script/vagrant.sh",
+              "script/sshd.sh",
+              "script/epel.sh",
+              "script/devops_tools.sh",
+              "script/update.sh",
+              "script/add_nameserver.sh",
+              "script/cleanup.sh"
+            ],
+            "type": "shell"
+        }
+    ],
+    "post-processors": [
+        {
+            "keep_input_artifact": true,
+            "output": "box/{{.Provider}}/centos71-x64-{{user `version`}}.box",
+            "type": "vagrant"
+        }
+    ],
+    "variables": {
+        "iso_checksum": "7c1e34e95c991175290d704dbdcc6531774cbecb",
+        "iso_name": "CentOS-7-x86_64-Minimal-1503-01.iso",
+        "iso_path": "iso",
+        "iso_url": "http://ftp.osuosl.org/pub/centos/7.1.1503/isos/x86_64/CentOS-7-x86_64-Minimal-1503-01.iso",
+        "ssh_password": "vagrant",
+        "ssh_username": "vagrant",
+        "version": "1.0.0",
+        "update": "true",
+        "install_vagrant_key": "true"
+    }
+}
