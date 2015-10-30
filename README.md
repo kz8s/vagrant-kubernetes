@@ -14,6 +14,11 @@ Build a base CentOS7 image and layer Kubernetes on top of it
 sh build-all.sh
 ```
 
+As part of its action, this script downloads the ISO image for
+CentOS7.  The first time you run it may take 20-30 minutes, depending
+on your network.  This ISO image is cached, so subsequent runs will
+take significantly less time.
+
 ### Smoketesting the Cluster
 
 Download a Kubernetes release tarball and extract
