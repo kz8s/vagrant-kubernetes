@@ -72,3 +72,9 @@ current-context: vbox
 kind: Config
 preferences: {}
 ```
+
+```
+kubectl cluster-info
+Kubernetes master is running at http://localhost:8080
+KubeDNS is running at http://localhost:8080/api/v1/proxy/namespaces/kube-system/services/kube-dns
+```
