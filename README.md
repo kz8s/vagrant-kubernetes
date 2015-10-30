@@ -1,4 +1,4 @@
-## Provisioning a Desktop Kubernetes Cluster within VirtualBox with Packer and Vagrant
+## Provisioning a Desktop Kubernetes cluster within VirtualBox with Packer and Vagrant
 
 ### Prerequisites
 
@@ -19,7 +19,7 @@ CentOS7.  The first time you run it may take 20-30 minutes, depending
 on your network.  This ISO image is cached, so subsequent runs will
 take significantly less time.
 
-### Smoketesting the Cluster
+### Smoketesting the cluster
 
 Download a Kubernetes release tarball and extract
 [kubectl](https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
@@ -52,7 +52,7 @@ Cleanup the smoketest busybox container
 kubectl --kubeconfig=kubernetes-configs/kubeconfig delete pod busybox
 ```
 
-### Installing a Capable kubeconfig
+### Installing a capable kubeconfig
 
 Here is the kubeconfig that lets you interact with this cluster
 without having to specify options to kubectl.  Put this in
