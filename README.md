@@ -1,4 +1,4 @@
-## Provisioning a Desktop Kubernetes cluster within VirtualBox with Packer and Vagrant
+## Provisioning a desktop Kubernetes cluster within VirtualBox with Packer and Vagrant
 
 ### Prerequisites
 
