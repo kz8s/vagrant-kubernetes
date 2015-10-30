@@ -2,9 +2,16 @@
 
 ### Prerequisites
 
+To proceed, you must have the following tools installed and on your PATH:
+
 * Packer (https://www.packer.io/)
 * Vagrant (https://www.vagrantup.com/)
 * VirtualBox (https://www.virtualbox.org/wiki/Downloads)
+
+You will also need an executable kubectl toward the end of these
+instructions.  Download a Kubernetes release tarball and extract
+[kubectl](https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
+from it.
 
 ### Build
 
@@ -20,10 +27,6 @@ on your network.  This ISO image is cached, so subsequent runs will
 take significantly less time.
 
 ### Smoketesting the cluster
-
-Download a Kubernetes release tarball and extract
-[kubectl](https://github.com/kubernetes/kubernetes/releases/tag/v1.0.6)
-from it.
 
 Smoke test the cluster by creating a trivial process in a busybox
 container, then exec into that container to do an nslookup on the
