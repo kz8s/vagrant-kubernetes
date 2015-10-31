@@ -29,6 +29,22 @@ CentOS7.  The first time you run it may take 20-30 minutes, depending
 on your network.  This ISO image is cached, so subsequent runs will
 take significantly less time.
 
+#### Tweaking the Kubernetes configuration
+
+Cluster configuration is easily modified by changing configs in ./kubernetes-configs, followed
+by rebuilding the Kubernetes bits through Packer.  Changes to the Kubernetes configuration do not require a full rebuild
+of the underlying CentOS box:
+
+```
+$ rm -rf artifacts/centos71-kubernetes box/virtualbox/centos71-kubernetes-x64-1.0.0.box
+$ vagrant global-status | grep centos-7.1-x64 | awk '{print "vagrant destroy --force " $1}'  | sh
+$ vagrant box remove --force centos71-kubernetes
+
+$ packer build centos71-kubernetes-virtualbox.json
+
+$ vagrant up --provider=virtualbox
+```
+
 ### Smoketesting the cluster
 
 Smoke test the cluster by creating a trivial process in a busybox
