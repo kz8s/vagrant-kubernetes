@@ -31,9 +31,18 @@ take significantly less time.
 
 #### Tweaking the Kubernetes configuration
 
-Cluster configuration is easily modified by changing configs in ./kubernetes-configs, followed
-by rebuilding the Kubernetes bits through Packer.  Changes to the Kubernetes configuration do not require a full rebuild
-of the underlying CentOS box:
+Cluster configuration is easily modified by changing configs in
+kubernetes-configs/, followed by rebuilding the Kubernetes bits
+through Packer and Vagrant.
+
+In kubernetes-configs/, config, apiserver, controller-manager, kubelet
+and proxy all map directly to systemd configs for the respective
+systemd Kubernetes services.  apiserver.crt and apiserver.key are the
+TLS bits to secure the API master, and the yaml files are skydns
+config.
+
+Persistent changes to the Kubernetes configuration do not require a
+full rebuild of the underlying CentOS box:
 
 ```
 $ rm -rf artifacts/centos71-kubernetes box/virtualbox/centos71-kubernetes-x64-1.0.0.box
