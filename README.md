@@ -1,5 +1,8 @@
 ## Provisioning a desktop Kubernetes cluster within VirtualBox with Packer and Vagrant
 
+Build a single-machine Kubernetes cluster for local development purposes.  Master and single node reside
+on the same VirtualBox VM.  skydns is included in the cluster, so service lookup by name works.
+
 ### Prerequisites
 
 To proceed, you must have the following tools installed and on your PATH:
